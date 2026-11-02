@@ -1,0 +1,8 @@
+# Accepted risks (REV-95). The review reads this file from the default branch only, so a PR cannot
+# suppress its own finding. The entry below covers the `suppressed` overlay's partner ingress.
+version: 1
+suppressions:
+  - rule: sg-ingress-public
+    resource: aws_security_group.partner_ingress
+    root: envs/prod
+    reason: "Partner reporting ingress, accepted by SecOps until the private link lands (CBX Guard e2e fixture)"
