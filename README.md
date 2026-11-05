@@ -12,6 +12,9 @@ It is laid out like a real customer repository:
 - `envs/legacy` is a third root whose security group was opened to the internet
   before CBX Guard watched the repo. `k8s/web` is a Kubernetes manifest root.
 - `.cbxguard/suppressions.yaml` accepts one known risk, with its reason.
+- `toolchain` is a root with no provider, whose Terraform and OpenTofu version files the review
+  matrix changes. `clouds/azure` and `clouds/gcp` are roots for clouds this org has no connection
+  for. `k8s/db` is a second Kubernetes manifest root.
 
 The staging e2e (`test/e2e/staging/gitlab-mr-review.ts`, `github-pr-review.ts`) opens a change
 against `main`, pushes a second commit while the first is under review, and closes the change and

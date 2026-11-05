@@ -1,0 +1,25 @@
+# A second Kubernetes manifest root (`kind: kubernetes-manifests`): the orders database and the
+# in-cluster Service in front of it. The review diffs a change here against the PR base without
+# Terraform (MCL-38). The k8s-loadbalancer scenario turns the Service into a public LoadBalancer.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders-db
+  namespace: orders
+  labels:
+    app: orders-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orders-db
+  template:
+    metadata:
+      labels:
+        app: orders-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16
+          ports:
+            - containerPort: 5432

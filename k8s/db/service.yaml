@@ -1,0 +1,15 @@
+# Cluster-internal only: a ClusterIP Service on Postgres's port.
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders-db
+  namespace: orders
+spec:
+  type: ClusterIP
+  selector:
+    app: orders-db
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432
+      protocol: TCP
