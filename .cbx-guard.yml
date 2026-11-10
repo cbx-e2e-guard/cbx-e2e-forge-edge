@@ -1,23 +1,7 @@
-# CBX Guard review config (REV-06). The review reads it from the default branch, never from the
-# PR head. Three Terraform roots and one Kubernetes manifest root; prod's required variables come
-# only from its var file. The roots after k8s/web are the review matrix's toolchain group (CB-1171):
-# a provider-free root whose version files the scenarios change, an Azure and a GCP root the e2e org
-# has no connection for, and a second manifest root.
+# The release branch's own review config, which the review must never read (REV-20). It drops
+# envs/prod, so a review that took its config from the target branch would leave the danger change
+# unreviewed instead of flagging it.
 version: 1
 roots:
   - path: envs/staging
     cloud: aws
-  - path: envs/prod
-    cloud: aws
-    varFiles: [prod.tfvars]
-  - path: envs/legacy
-    cloud: aws
-  - path: k8s/web
-    kind: kubernetes-manifests
-  - path: toolchain
-  - path: clouds/azure
-    cloud: azure
-  - path: clouds/gcp
-    cloud: gcp
-  - path: k8s/db
-    kind: kubernetes-manifests
